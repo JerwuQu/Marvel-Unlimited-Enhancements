@@ -6,6 +6,7 @@
 // @author       Marcus Ramse
 // @match        https://read.marvel.com/
 // @grant        GM_addStyle
+// @downloadURL  https://raw.githubusercontent.com/JerwuQu/Marvel-Unlimited-Enhancements/master/mue.js
 // ==/UserScript==
 /* eslint no-multi-spaces: 0 */
 
