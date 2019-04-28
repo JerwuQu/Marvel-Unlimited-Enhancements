@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Marvel Unlimited Enhancements
 // @namespace    https://ramse.se/
-// @version      0.1
+// @version      0.2
 // @description  Better UX
 // @author       Marcus Ramse
 // @match        https://read.marvel.com/
@@ -41,6 +41,7 @@ var MU_KEYS = {
 var MUE_KEYS = {
     advance:    32,   // space
     help:       72,   // h
+    nextIssue:  78,   // n
     toggleUI:   84,   // t
 };
 
@@ -58,7 +59,8 @@ mueHelp.innerHTML = `
     <h2>MUE hotkeys</h2>
     <div><strong>Space</strong> - Next page</div>
     <div><strong>H</strong> - Show this help</div>
-    <div><strong>T</strong> - Toggle disabling of UI</div>
+    <div><strong>N</strong> - Next issue</div>
+    <div><strong>T</strong> - Disable default UI</div>
 </div>
 `;
 document.body.appendChild(mueHelp);
@@ -114,6 +116,10 @@ document.body.addEventListener('keydown', function(e) {
         case MUE_KEYS.help:
             var help = document.querySelector('.mue-help');
             help.className = toggleClass(help.className, 'mue-hidden');
+            break;
+        case MUE_KEYS.nextIssue:
+            window.location.href = 'https://read.marvel.com/#book/' +
+                document.querySelector('[data-nextid]').getAttribute('data-nextid');
             break;
         case MUE_KEYS.toggleUI:
             var header = document.querySelector('section#header');
