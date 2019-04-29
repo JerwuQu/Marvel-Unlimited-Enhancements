@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Marvel Unlimited Enhancements
 // @namespace    https://ramse.se/
-// @version      0.4
+// @version      0.5
 // @description  Better UX
 // @author       Marcus Ramse
 // @match        https://read.marvel.com/
@@ -82,39 +82,6 @@ function simulateKey(keyCode) {
     }));
 }
 
-function hasClass(current, check) {
-    var classes = current.split(' ');
-    return classes.indexOf(check) >= 0;
-}
-
-function addClass(current, add) {
-    if (hasClass(current, add)) {
-        return current;
-    }
-
-    var classes = current.split(' ');
-    classes.push(add);
-    return classes.join(' ');
-}
-
-function removeClass(current, remove) {
-    if (!hasClass(current, remove)) {
-        return current;
-    }
-
-    var classes = current.split(' ');
-    classes.splice(classes.indexOf(remove), 1);
-    return classes.join(' ');
-}
-
-function toggleClass(current, toggle) {
-    if (hasClass(current, toggle)) {
-        return removeClass(current, toggle);
-    } else {
-        return addClass(current, toggle);
-    }
-}
-
 // Bind MUE hotkeys
 document.body.addEventListener('keydown', function(e) {
     switch (e.which) {
@@ -122,12 +89,10 @@ document.body.addEventListener('keydown', function(e) {
             simulateKey(MU_KEYS.right);
             break;
         case MUE_KEYS.cursor:
-            var body = document.body;
-            body.className = toggleClass(body.className, 'mue-nocursor');
+            document.body.classList.toggle('mue-nocursor');
             break;
         case MUE_KEYS.help:
-            var help = document.querySelector('.mue-help');
-            help.className = toggleClass(help.className, 'mue-hidden');
+            document.querySelector('.mue-help').classList.toggle('mue-hidden');
             break;
         case MUE_KEYS.library:
             window.location.href = 'https://www.marvel.com/my_account/my_must_reads';
@@ -139,10 +104,8 @@ document.body.addEventListener('keydown', function(e) {
             location.reload();
             break;
         case MUE_KEYS.toggleUI:
-            var header = document.querySelector('section#header');
-            var footer = document.querySelector('section#footer');
-            header.className = toggleClass(header.className, 'mue-hidden');
-            footer.className = toggleClass(footer.className, 'mue-hidden');
+            document.querySelector('section#header').classList.toggle('mue-hidden');
+            document.querySelector('section#footer').classList.toggle('mue-hidden');
             break;
         default:
             return;
